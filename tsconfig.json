@@ -1,7 +1,8 @@
 {
 	"compilerOptions": {
-        "module": "esNext",
-		"target": "es5",
+        "module": "esnext",
+		"target": "es2019",
+        "allowJs": true,
 		"moduleResolution": "node",
 		"strict": true,
 		"noImplicitAny": true,
@@ -12,6 +13,10 @@
         "skipLibCheck": true,
 		"preserveConstEnums":true,
         "sourceMap": true,
-        "rootDir": "src"
+        "baseUrl": "src",
+        "plugins":[
+            {"name":"typescript-styled-plugin"},
+            {"name":"typescript-eslint-language-service"}
+        ]
 	}
 }

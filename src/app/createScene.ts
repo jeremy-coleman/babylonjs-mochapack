@@ -1,5 +1,4 @@
-type Engine = import("@babylonjs/core/Engines/engine").Engine;
-type Scene = import("@babylonjs/core/scene").Scene;
+import type { Engine, Scene } from "@babylonjs/core";
 
 export interface CreateSceneClass {
     createScene: (engine: Engine, canvas: HTMLCanvasElement) => Promise<Scene>;
@@ -11,9 +10,9 @@ export interface CreateSceneModule {
 }
 
 export const getSceneModuleWithName = (
-    name = 'defaultWithTexture'
+    name = "defaultWithTexture"
 ): Promise<CreateSceneClass> => {
-    return import('./scenes/' + name).then((module: CreateSceneModule)=> {
+    return import("./scenes/" + name).then((module: CreateSceneModule) => {
         return module.default;
     });
 
@@ -23,4 +22,3 @@ export const getSceneModuleWithName = (
     //     return module.default;
     // });
 };
-

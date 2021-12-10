@@ -1,19 +1,17 @@
 const path = require("path");
-const fs = require("fs");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
-// App directory
-const appDirectory = fs.realpathSync(process.cwd());
-
 module.exports = {
-    entry: path.resolve(appDirectory, "src/index.ts"),
+    mode: "development",
+    devtool: "inline-source-map",
+    entry: path.join(__dirname, "src/app/index.ts"),
     output: {
-        filename: "js/babylonBundle.js",
-        path: path.resolve("./dist/"),
+        filename: "babylonBundle.js",
+        path: path.join(__dirname, "dist", "js"),
     },
     resolve: {
-        extensions: [".ts", ".js"],
+        extensions: [".ts", ".js", ".jsx", ".tsx"],
         fallback: {
             fs: false,
             path: false, // require.resolve("path-browserify")
@@ -53,7 +51,16 @@ module.exports = {
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             inject: true,
-            template: path.resolve(appDirectory, "public/index.html"),
+            template: path.join(__dirname, "public/index.html"),
         }),
     ],
+
+    devServer: {
+        static: path.resolve(__dirname, "public"),
+        compress: true,
+        hot: true,
+        open: true,
+        // host: '0.0.0.0', // enable to access from other devices on the network
+        // https: true // enable when HTTPS is needed (like in WebXR)
+    },
 };
